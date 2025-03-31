@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://ul43s4e4ymm2"]
+
+[ext_resource type="PackedScene" uid="uid://dea6pqutol1yy" path="res://tree.tscn" id="1_mw2ei"]
+[ext_resource type="Texture2D" uid="uid://bf0h1mpgkud4a" path="res://assets/sprites/grass.png" id="2_2qnaq"]
+
+[node name="grass" instance=ExtResource("1_mw2ei")]
+
+[node name="shadow" parent="." index="0"]
+visible = false
+
+[node name="Sprite2D" parent="." index="1"]
+texture = ExtResource("2_2qnaq")
+
+[node name="CollisionShape2D" parent="." index="2"]
+visible = false

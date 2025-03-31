@@ -1,0 +1,282 @@
+[gd_scene load_steps=22 format=3 uid="uid://c3fqitlh5l4nv"]
+
+[ext_resource type="Shader" uid="uid://dj32yraxafdro" path="res://vhs.gdshader" id="1_5i4o0"]
+[ext_resource type="Texture2D" uid="uid://dquarrf8etfhm" path="res://assets/background.png" id="1_tvwca"]
+[ext_resource type="Script" uid="uid://s640dlqm71vs" path="res://movement.gd" id="2_54gbb"]
+[ext_resource type="Texture2D" uid="uid://dxrt4gt5ev5in" path="res://assets/sprites/character1.png" id="3_f7qow"]
+[ext_resource type="Texture2D" uid="uid://c6sjs6iaeggu0" path="res://assets/sprites/character2.png" id="4_gv487"]
+[ext_resource type="Texture2D" uid="uid://bxvh3jap50eqe" path="res://assets/sprites/character3.png" id="5_0guku"]
+[ext_resource type="Texture2D" uid="uid://crlajpsm6g6r4" path="res://assets/sprites/shadow.png" id="6_54gbb"]
+[ext_resource type="Texture2D" uid="uid://b1d23wttiw7a3" path="res://assets/sprites/jump.png" id="7_0guku"]
+[ext_resource type="AudioStream" uid="uid://b4rh8jb3yjd4o" path="res://assets/audio/step.wav" id="7_f7qow"]
+[ext_resource type="AudioStream" uid="uid://ca46c7b4cc7qk" path="res://assets/audio/jump.wav" id="8_fj8qn"]
+[ext_resource type="AudioStream" uid="uid://dgou8x50yba8i" path="res://assets/audio/wind.wav" id="10_pa1tq"]
+[ext_resource type="PackedScene" uid="uid://dea6pqutol1yy" path="res://tree.tscn" id="11_8ne0m"]
+[ext_resource type="AudioStream" uid="uid://bvj0yfv2y3yet" path="res://assets/audio/crt_sound.wav" id="11_v73sl"]
+[ext_resource type="AudioStream" uid="uid://d1i72nikit4os" path="res://assets/audio/theme.mp3" id="12_pa1tq"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_5i4o0"]
+width = 5
+height = 5
+generate_mipmaps = false
+normalize = false
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v73sl"]
+shader = ExtResource("1_5i4o0")
+shader_parameter/curvature = 2.44
+shader_parameter/skip = 0.0
+shader_parameter/image_flicker = 0.07
+shader_parameter/vignette_flicker_speed = 0.0
+shader_parameter/vignette_strength = 1.11
+shader_parameter/small_scanlines_speed = 10.0
+shader_parameter/small_scanlines_proximity = 1.0
+shader_parameter/small_scanlines_opacity = 1.0
+shader_parameter/scanlines_opacity = 0.0
+shader_parameter/scanlines_speed = 1.7
+shader_parameter/scanline_thickness = 0.5
+shader_parameter/scanlines_spacing = 1.0
+shader_parameter/noise_texture = SubResource("NoiseTexture2D_5i4o0")
+
+[sub_resource type="Animation" id="Animation_8ne0m"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("3_f7qow")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../shadow:scale")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pa1tq"]
+resource_name = "jump"
+length = 0.9
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.066667, 0.166667, 0.62, 0.8),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_f7qow"), ExtResource("7_0guku"), ExtResource("3_f7qow"), ExtResource("7_0guku"), ExtResource("3_f7qow")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.066667, 0.166667, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, 0), Vector2(0, 0), Vector2(0, -4), Vector2(0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("8_fj8qn")
+}, {
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_f7qow")
+}],
+"times": PackedFloat32Array(0.066667, 0.4)
+}
+tracks/2/use_blend = true
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("../shadow:scale")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.1, 0.4, 0.65204),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(1, 1), Vector2(0.85, 0.85), Vector2(1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_fj8qn"]
+resource_name = "walk"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:texture")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.766667),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("3_f7qow"), ExtResource("4_gv487"), ExtResource("5_0guku")]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position")
+tracks/1/interp = 0
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.433333, 0.933333),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -1), Vector2(0, 0)]
+}
+tracks/2/type = "audio"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("../AudioStreamPlayer2D")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"clips": [{
+"end_offset": 0.0,
+"start_offset": 0.0,
+"stream": ExtResource("7_f7qow")
+}],
+"times": PackedFloat32Array(0.1)
+}
+tracks/2/use_blend = true
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pa1tq"]
+_data = {
+&"RESET": SubResource("Animation_8ne0m"),
+&"jump": SubResource("Animation_pa1tq"),
+&"walk": SubResource("Animation_fj8qn")
+}
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_5i4o0"]
+radius = 3.0
+
+[node name="Node2D" type="Node2D"]
+y_sort_enabled = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_v73sl")
+offset_right = 128.0
+offset_bottom = 72.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(64, 36)
+texture = ExtResource("1_tvwca")
+
+[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+position = Vector2(29, 49)
+script = ExtResource("2_54gbb")
+speed = 10
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CharacterBody2D"]
+root_node = NodePath("../Sprite2D")
+libraries = {
+&"": SubResource("AnimationLibrary_pa1tq")
+}
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+position = Vector2(0, 7)
+shape = SubResource("CircleShape2D_5i4o0")
+
+[node name="shadow" type="Sprite2D" parent="CharacterBody2D"]
+texture = ExtResource("6_54gbb")
+
+[node name="Sprite2D" type="Sprite2D" parent="CharacterBody2D"]
+rotation = 0.120428
+skew = -0.118682
+texture = ExtResource("3_f7qow")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+zoom = Vector2(3, 3)
+
+[node name="crt" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(396, 180)
+stream = ExtResource("11_v73sl")
+volume_db = -50.644
+autoplay = true
+
+[node name="wind" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(198, 90)
+stream = ExtResource("10_pa1tq")
+volume_db = -0.99
+autoplay = true
+
+[node name="theme" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(99, 45)
+stream = ExtResource("12_pa1tq")
+volume_db = -23.771
+autoplay = true
+
+[node name="tree" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(14, 4)
+
+[node name="tree2" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(109, 6)
+
+[node name="tree3" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(117, 64)
+
+[node name="tree4" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(13, 65)
+
+[node name="tree5" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(23, 73)
+
+[node name="tree6" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(107, 46)
+
+[node name="tree7" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(37, 16)
+
+[node name="tree8" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(72, 36)
+
+[node name="tree9" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(14, 32)
+
+[node name="tree10" parent="." instance=ExtResource("11_8ne0m")]
+position = Vector2(69, 4)
